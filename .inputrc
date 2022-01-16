@@ -1,0 +1,14 @@
+set completion-ignore-case On
+set bell-style none
+
+# gnome-terminal usually intercepts Ctrl-PgUp/Ctrl-PgDn since those are the
+# 'next/prev tab' commands.  However, if there are no more tabs in the
+# indicated direction, then 5~ is sent instead, which annoyingly ends up as
+# literal chars in the terminal.  This mapping ignores those.
+# Literally: when given the literal chars ";5~" (without quotes), run a macro
+# that just inserts the empty string into the line.
+";5~":  ""
+
+# Ctrl-right, Ctrl-left for forward-word, backward-word
+";5C": forward-word
+";5D": backward-word

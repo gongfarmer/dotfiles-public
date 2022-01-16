@@ -1,0 +1,84 @@
+# Supporting functions / color vars for git-aware bash prompt
+c_red=`tput setaf 1`
+c_green=`tput setaf 2`
+c_yellow=`tput setaf 3`
+c_purple=`tput setaf 5`
+c_cyan=`tput setaf 6`
+c_sgr0=`tput sgr0`
+
+# Print the current git branch.  Enclose in brackets.
+# Return empty string if not inside a git branch.
+parse_git_branch ()
+{
+  if git rev-parse --git-dir > /dev/null 2>&1
+  then
+    gitver=$(git branch 2>/dev/null| sed -n '/^\*/s/^\* //p')
+  else
+    return 0
+  fi
+  echo -e " ($gitver)"
+}
+
+# Return a color to use for printing the current branch.
+# Color indicates whether branch is modified.
+branch_color ()
+{
+  if git rev-parse --git-dir > /dev/null 2>&1
+  then
+    color=""
+    if git diff --quiet 2>/dev/null >&2
+    then
+      color="${c_green}"
+    elif git diff --cached --quiet 2>/dev/null >&2
+    then
+      color="${c_yellow}"
+    else
+      color="${c_red}"
+    fi
+  else
+    return 0
+  fi
+  echo -ne "$color"
+}
+
+unset color_prompt force_color_prompt
+# set a fancy prompt (non-color, unless we know we "want" color)
+case "$TERM" in
+    xterm-color|*-256color) color_prompt=yes;;
+esac
+
+# uncomment for a colored prompt, if the terminal has the capability; turned
+# off by default to not distract the user: the focus in a terminal window
+# should be on the output of commands, not on the prompt
+force_color_prompt=yes
+
+if [ -n "$force_color_prompt" ]; then
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+	# We have color support; assume it's compliant with Ecma-48
+	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+	# a case would tend to support setf rather than setaf.)
+	color_prompt=yes
+    else
+	color_prompt=
+    fi
+fi
+
+if [ "$color_prompt" = yes ]; then
+#    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1='\[${c_green}\]\u@\h:\[${c_cyan}\]\w\[${c_sgr0}\]\[$(branch_color)\]$(parse_git_branch)\[${c_sgr0}\]$ '
+
+else
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+fi
+unset color_prompt force_color_prompt
+
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+xterm*|rxvt*)
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    ;;
+*)
+    ;;
+esac
+
+# vim: syntax=sh

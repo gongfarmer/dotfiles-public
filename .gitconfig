@@ -1,0 +1,53 @@
+[user]
+	name = Fraser Hanson
+	email = fraser.hanson@netapp.com
+[color]
+	ui = true
+[core]
+	editor = vim
+	excludesfile = .gitignore
+[merge]
+	tool = meld
+[giggle]
+	main-window-maximized = true
+	main-window-geometry = 700x550+133+160
+	main-window-view = HistoryView
+	file-view-vpane-position = 779
+	history-view-vpane-position = 780
+
+
+# Some aliases added by Fraser
+[alias]                                                                                                                                                                                                     
+  ci = commit -v                                                                                                                                                                                      
+  record = !git add -p && git ci                                                                                                                                                                      
+  amend-record = !git add -p && git ci --amend                                                                                                                                                        
+  update-master = !git checkout master && git pull -r                                                                                                                                                 
+
+  untracked = ls-files . --exclude-standard --others
+
+
+  # From the git wiki:
+  #   https://git.wiki.kernel.org/articles/a/l/i/Aliases.html#Prune_all_your_stale_remote_branches
+  # Prune all your stale remote branches
+  prune-all = !git remote | xargs -n 1 git remote prune                                                                                                                                               
+
+  # colored log that shows tags and diamonds
+  lol = log --graph --decorate --pretty=oneline --abbrev-commit                                                                                                                                       
+  lola = log --graph --decorate --pretty=oneline --abbrev-commit --all   
+	lg  = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit -n 20 --
+	lga = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+	ll = log --oneline
+
+  # just showcommit sha1 and commit description only
+  lcd = log --abbrev-commit --pretty=format:'%h %s' --
+
+	oldest-ancestor = !bash -c 'diff --old-line-format= --new-line-format= <(git rev-list --first-parent \"${1:-master}\") <(git rev-list --first-parent \"${2:-HEAD}\") | head -1' -
+
+
+	st = status -sb
+[push]
+	default = simple
+[init]
+	defaultBranch = master
+[url "git@github.com:"]
+	insteadOf = https://github.com/

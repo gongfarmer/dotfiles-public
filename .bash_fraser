@@ -1,0 +1,29 @@
+# My personal bash configuration.
+# Settings here are to be used on all my user accounts on all systems.
+# To start using this, source it in ~/.bashrc. This allows me to keep the stock ~/.bashrc on each system.
+#
+# Put customization specific to a particular system in ~/.bash_local. This file is not checked in.
+#
+# My dotfiles management was setup in a bare git repo following these instructions:
+# https://www.ackama.com/what-we-think/the-best-way-to-store-your-dotfiles-a-bare-git-repository-explained/
+# My dotfiles are here: git@github.com:gongfarmer/dotfiles-public.git
+
+export EDITOR="vim"
+export VISUAL="$EDITOR"
+
+# Prompt including git branch
+if [ -f ~/.bash_git_prompt ]; then
+    source ~/.bash_git_prompt
+fi
+
+# cd history
+if [ -f ~/.bash_cd_history ]; then
+    source ~/.bash_cd_history
+fi
+
+# Custom configuration for this system only, not checked into git
+if [ -f ~/.bash_local ]; then
+  source ~/.bash_local
+fi
+
+# vim: syntax=sh
