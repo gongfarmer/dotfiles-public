@@ -4,6 +4,7 @@ alias less="less -nrf" # -r: show the colors for ansi escapes in my rails logs
 alias shuffle="ruby -e 'puts ARGF.readlines.sort_by { rand } rescue nil'"
 alias youtube-dl-mp3='youtube-dl --extract-audio --audio-format mp3 '
 alias age="ruby -rdate -e 'b=Date.parse(\"Sep 23 1974\"); p (Date.today-b) / 365.25'"
+alias ...='cd ../../..'
 
 # Define shell function to do paragraph grep
 # NOTE: -00 flag means slurp files in paragraph mode!  Remember that one.
@@ -25,10 +26,42 @@ alias ethtop="echo its iftop stupid"
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 alias j="vim ~/journal.txt"
+alias i="vim ~/info.txt"
+
 
 # Use nvim if available
 if command -v nvim &> /dev/null; then
   alias vi=nvim
 fi
+
+if command -v htop &> /dev/null; then
+  alias top=htop
+fi
+
+# Sometimes I suck at typing
+alias jbos="jobs"
+alias josb="jobs"
+alias hibs="jobs"
+alias fgfg="fg"
+alias gf="fg"
+alias vo=vim
+alias vmi=vim
+alias bim=vim
+alias mkae=make
+
+alias run_ctags="ctags -R --c++-kinds=+p --extra=+f --langmap=c++:+.p ."
+alias xc='xclip -selection clipboard'
+alias xcb='base64 | xclip -selection clipboard'
+
+# Make a webserver that serves everything under the current dir to
+# localhost:8000, dirs can be browsed and files downloaded from a browser.
+alias webshare='python -c "import SimpleHTTPServer;SimpleHTTPServer.test()"'
+
+# Cool trick here: the escape means that $COLUMNS is not evaluated until the
+# alias is used, instead of being evaluated when it is defined.  This means
+# that the current width will be used, not the width that was set at shell
+# startup!
+alias sdiff="sdiff --width=\$COLUMNS"
+
 
 # vim: syntax=sh

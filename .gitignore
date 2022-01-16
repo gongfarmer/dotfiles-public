@@ -1,5 +1,11 @@
-*.swp
+.gitignore
+*.swn
 *.swo
+*.swp
+*~
 
 # Avoid recursively tracking the .cfg/ dir, which is the repository for my dotfiles
 *.cfg
+
+tags
+file

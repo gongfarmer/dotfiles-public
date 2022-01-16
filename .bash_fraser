@@ -11,6 +11,10 @@
 export EDITOR="vim"
 export VISUAL="$EDITOR"
 
+# Display time in history command
+export HISTTIMEFORMAT="%y-%m-%d - $H:%M:%S "
+
+
 # Prompt including git branch
 if [ -f ~/.bash_git_prompt ]; then
     source ~/.bash_git_prompt
