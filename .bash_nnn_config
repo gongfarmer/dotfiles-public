@@ -1,0 +1,28 @@
+# Make nnn cd to last visited dir on quit
+nnn_cd_on_quit()
+{
+    # Block nesting of nnn in subshells
+    if [ $(expr $NNNLVL + 0) -ge 1 ]; then
+        echo "nnn is already running"
+        return
+    fi
+
+    # The default behaviour is to cd on quit (nnn checks if NNN_TMPFILE is set)
+    # To cd on quit only on ^G, export NNN_TMPFILE after the call to nnn
+    export NNN_TMPFILE=${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd
+
+    /usr/bin/nnn "$@"
+
+#    echo "NNN_TMPFILE is ${NNN_TMPFILE}"
+#    cat "${NNN_TMPFILE}"
+    if [ -f $NNN_TMPFILE ]; then
+            . $NNN_TMPFILE
+            rm -f $NNN_TMPFILE > /dev/null
+    fi
+}
+alias nnn='nnn_cd_on_quit'
+
+# nnn bookmarks
+export NNN_BMS="d:/data/downloads;s:/data/share"
+
+# vim: syntax=sh

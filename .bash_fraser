@@ -26,4 +26,9 @@ if [ -f ~/.bash_local ]; then
   source ~/.bash_local
 fi
 
+# Configure nnn
+if command -v nnn &> /dev/null; then
+  source ~/.bash_nnn_config
+fi
+
 # vim: syntax=sh
