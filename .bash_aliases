@@ -63,5 +63,7 @@ alias webshare='python -c "import SimpleHTTPServer;SimpleHTTPServer.test()"'
 # startup!
 alias sdiff="sdiff --width=\$COLUMNS"
 
+alias uuid="ruby -rsecurerandom -e 'puts SecureRandom.uuid'"
+
 
 # vim: syntax=sh
