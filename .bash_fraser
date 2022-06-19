@@ -35,4 +35,8 @@ if command -v nnn &> /dev/null; then
   source ~/.bash_nnn_config
 fi
 
+if pidof -q mosh-server; then
+  echo "WARNING, mosh-server detected. Mosh lacks true-color support and fails to render neovim correctly"
+fi
+
 # vim: syntax=sh
