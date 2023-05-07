@@ -25,8 +25,8 @@ alias ethtop="echo its iftop stupid"
 # This command helps manage my bare git repo for dotfiles
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
-alias j="vim ~/journal.txt"
-alias i="vim ~/info.txt"
+alias j="vi ~/journal.txt"
+alias i="vi ~/info.txt"
 
 
 # Use nvim if available
